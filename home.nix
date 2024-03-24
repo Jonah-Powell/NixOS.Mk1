@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -13,7 +13,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -23,6 +23,9 @@
   imports =
     [
       ./bash.nix
+      ./hyprland.nix
+      ./waybar.nix
+      ./stylix-h.nix
     ];
 
   # Minimize/Maximize Windows
@@ -42,18 +45,44 @@
     jdk
     clamav
     discord
+    betterdiscordctl
+    google-chrome
     gcc_multi
-    gimp-with-plugins
+    gimp
     tlp
     tree
     wine
     winetricks
     protontricks
+    protonup
     kitty
     nyancat
     r2modman
     tor-browser
+    gparted
+    libreoffice
 
+    networkmanager
+    mpd
+    # lm_sensors
+
+    hyprland
+    xorg.xhost
+    font-awesome_5
+    qt5ct
+    qt6ct
+
+    grimblast 
+    brightnessctl
+    brillo
+    cliphist
+    wl-clipboard
+    go
+    dunst
+    libnotify
+
+    imv
+    gwenview
     # gnome extensions
     gnomeExtensions.dash-to-dock
     gnomeExtensions.system-monitor-2
@@ -118,23 +147,40 @@
   #
   home.sessionVariables = {
     EDITOR = "codium";
+    NIXPKGS_ALLOW_UNFREE=1;
   };
-
-
 
   programs.kitty = {
     enable = true;
-    theme = "Chalkboard";
+    # theme = "Chalkboard";
   };
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium-fhs;
-    # extensions = with pkgs.vscode-extensions; [
-      
-    # ];
+    package = pkgs.vscodium.fhs;
+    extensions = with pkgs.vscode-extensions; [
+      bbenoist.nix
+    ];
   };
+
+  qt = {
+    enable = true;
+    platformTheme = "qtct";
+    style.name = "qt6ct";
+  };
+
+
+  # Fix this all later
+  # home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
+
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   plugins = [
+  #     inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+  #     # ...
+  #   ];
+  # };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-}
+  }

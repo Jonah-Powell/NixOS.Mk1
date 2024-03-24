@@ -8,14 +8,21 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./stylix-s.nix
+      # <nixos-hardware/framework/13-inch/13th-gen-intel>
+      # "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/framework/13-Inch/13th-gen-intel"
     ];
+  
+  services.fwupd.enable = true;
 
   # Bootloader.
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
+  boot.loader.grub.efiSupport = true;
 
-  networking.hostName = "nixos-vm"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -50,23 +57,23 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Enable Hyprland 
+
+  # Enable Hyprland <
   services.xserver.displayManager.gdm.wayland = true;  
 
   programs.hyprland = {    
       enable = true;    
       xwayland.enable = true;    
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       portalPackage = pkgs.xdg-desktop-portal-hyprland;
   }; 
-  # programs.waybar.enable = true;
+  programs.waybar.enable = true;
 
 
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "symbolic";
+    variant = "symbolic";
   };
 
   # Enable CUPS to print documents.
@@ -90,16 +97,34 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    GDK_BACKEND = "wayland";
+    GTK_USE_PORTAL = "1";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+    QT_QPA_PLATFORM = "wayland";
+    # WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+  };
   users.users.jonah = {
     isNormalUser = true;
     description = "Jonah";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-    #  thunderbird
+      networkmanagerapplet
+      libsForQt5.qtstyleplugin-kvantum
+      libsForQt5.lightly
+      libsForQt5.kdegraphics-thumbnailers
+      qt6Packages.qt6ct
+      qt6.qtwayland
+      qt5.qtwayland
+      kio-admin
     ];
   };
 
@@ -126,13 +151,14 @@
     steam-tui
     steamcmd
     steam-run-native
-    hyprland
-    xdg-desktop-portal-hyprland
-    wayland
-    waybar
     rofi
     wofi
     audacity
+    dolphin
+    waybar
+    hyprpaper
+    actkbd
+    ani-cli
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -193,5 +219,58 @@
       pkgs.xdg-desktop-portal
     ];
   };
+
+  services.power-profiles-daemon.enable = false;
+  
+  services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 20;
+
+       #Optional helps save long term battery health
+       START_CHARGE_THRESH_BAT0 = 60; # 40 and bellow it starts to charge
+       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+
+      };
+  };
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    nerdfonts
+    font-awesome
+    powerline-fonts
+    powerline-symbols
+  ];
+  
+  qt = {
+    enable = true;
+    # platformTheme = "qt6ct";
+  };
+
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 53 97 ]; events = [ "key" ]; command = "key(0xffff),rel(0xffff),noexec"; }
+    ];
+  };
+
+  programs.nm-applet.enable = true;
 
 }
