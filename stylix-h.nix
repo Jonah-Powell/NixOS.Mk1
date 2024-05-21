@@ -2,28 +2,28 @@
 
 {
     stylix = {
-        # jaskjf
         image = ./Firefox_wallpaper.jpg;
+        # image = ./Firefox_wallpaper.png;
         targets.hyprland.enable = true;
         targets.waybar.enable = true;
         polarity = "dark";
         # override = {
-        #     base00 = "00a09b";
-        #     base01 = "a03b00";
-        #     base02 = "a07d00";
-        #     base03 = "5300a0";
-        #     base04 = "a00050";
-        #     base05 = "00a050";
-        #     base06 = "00a09b";
-        #     base07 = "0058a0";
-        #     base08 = "0025a0";
-        #     base09 = "5300a0";
-        #     base0A = "7b00a0";
-        #     base0B = "a0009b";
-        #     base0C = "a00073";
-        #     base0D = "a00050";
-        #     base0E = "689fcc";
-        #     base0F = "192229";
+        #     base00 = "203d21";
+        #     base01 = "ff0018";
+        #     base02 = "762200";
+        #     base03 = "ff00e2";
+        #     base04 = "244e04";
+        #     base05 = "00ff29";
+        #     base06 = "393d02";
+        #     base07 = "f0ff1e";
+        #     base08 = "636820";
+        #     base09 = "08fe03";
+        #     base0A = "38495b";
+        #     base0B = "eeaa79";
+        #     base0C = "ff5c02";
+        #     base0D = "00ebff";
+        #     # base0E = "";
+        #     # base0F = "";
         # };
     };
 }

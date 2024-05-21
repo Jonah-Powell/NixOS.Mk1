@@ -35,9 +35,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    hello # merely here to test these exist
+
 
     #the good stuff
     vscodium-fhs
@@ -50,8 +48,7 @@
     gcc_multi
     gimp
     tlp
-    tree
-    wine
+    wineWowPackages.waylandFull
     winetricks
     protontricks
     protonup
@@ -64,6 +61,7 @@
 
     networkmanager
     mpd
+    killall
     # lm_sensors
 
     hyprland
@@ -163,9 +161,15 @@
     ];
   };
 
+  programs.thefuck = {
+    enable = true;
+    # alias = "fuck";
+  };
+
+
   qt = {
     enable = true;
-    platformTheme = "qtct";
+    platformTheme.name = "qtct";
     style.name = "qt6ct";
   };
 

@@ -200,8 +200,13 @@
                 "$mainMod, mouse_down, workspace, e+1"
                 "$mainMod, mouse_up, workspace, e-1"
 
-                "$mainMod, B, exec, waybar"
+                # "$mainMod, B, exec, waybar"
                 "$mainMod SHIFT, B, exec, hyprpaper"
+                "$mainMod, B, exec, killall .waybar-wrapped && waybar"
+
+
+                "$ALT SHIFT, Z, exec, bluetoothctl power on"
+                "$ALT SHIFT, X, exec, bluetoothctl power off"
 
                 # cliphist
                 "$mainMod SHIFT, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"

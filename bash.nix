@@ -8,6 +8,10 @@
       ".." = "cd ..";
       c = "clear";
       lt = "ls -h -s -1 -S --classify";
+      fetchneo = "nix-shell -p neofetch";
+      gpart = "sudo -E gparted";
+
+      goog = "google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland";
 
       # NixOS Config aliases
       dotf = "cd ~/.dotfiles";
@@ -20,9 +24,6 @@
       sysconfig = "codium ~/.dotfiles/configuration.nix";
       homeconfig = "codium ~/.dotfiles/home.nix";
       flakeconfig = "codium ~/.dotfiles/flake.nix";
-      goog = ''export NIXPKGS_ALLOW_UNFREE=1
-      nix-shell -p google-chrome --impure'';
-      fetchneo = "nix-shell -p neofetch";
       
       #Python Coding aliases
       phyfiles = "cd ~/Documents/phy115L";
