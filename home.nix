@@ -44,7 +44,6 @@
     clamav
     discord
     betterdiscordctl
-    google-chrome
     gcc_multi
     gimp
     tlp
