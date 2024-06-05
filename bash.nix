@@ -11,8 +11,6 @@
       fetchneo = "nix-shell -p neofetch";
       gpart = "sudo -E gparted";
 
-      goog = "google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland";
-
       # NixOS Config aliases
       dotf = "cd ~/.dotfiles";
       dotfconf = "codium ~/.dotfiles";
