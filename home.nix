@@ -42,7 +42,7 @@
     vscodium-fhs
     vlc
     jdk
-    clamav
+    # clamav
     discord
     betterdiscordctl
     _4d-minesweeper
@@ -55,18 +55,19 @@
     protontricks
     protonup
     kitty
-    nyancat
-    r2modman
+    # nyancat
+    # r2modman
     tor-browser
     gparted
     libreoffice
     sherlock
-    legendary-gl
+    lutris
     mangal
     wayneko
+    gotop
 
-    konsole
-    ripdrag
+    # konsole
+    # ripdrag
     highlight
 
     networkmanager
@@ -89,8 +90,9 @@
     go
     dunst
     libnotify
-    swayidle
-    swaylock
+    # swayidle
+    # swaylock
+    hypridle
 
     imv
     gwenview
@@ -165,7 +167,7 @@
 
   programs.kitty = {
     enable = true;
-    theme = "Chalkboard";
+    # theme = "Chalkboard";
   };
 
   programs.vscode = {

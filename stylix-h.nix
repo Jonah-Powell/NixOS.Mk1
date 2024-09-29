@@ -31,20 +31,20 @@
         fonts = {
             serif = {
                 package = pkgs.nerdfonts;
-                name = "DejaVuSansM Nerd Font";
-                # name = "BigBlueTermPlus Nerd Font Propo";
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Propo";
             };
 
             sansSerif = {
                 package = pkgs.nerdfonts;
-                name = "DejaVuSansM Nerd Font";
-                # name = "BigBlueTermPlus Nerd Font Propo";
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Propo";
             };
 
             monospace = {
                 package = pkgs.nerdfonts;
-                name = "DejaVuSansM Nerd Font Mono";
-                # name = "BigBlueTermPlus Nerd Font Mono";
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Mono";
             };
 
             emoji = {
