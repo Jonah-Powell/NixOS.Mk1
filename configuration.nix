@@ -92,13 +92,13 @@
     pulse.enable = true;
     wireplumber = {
       enable = true;
-      extraConfig = {
-        "10-disable-camera" = {
-          "wireplumber.profiles" = {
-            main."monitor.libcamera" = "disabled";
-          };
-        };
-      };
+      # extraConfig = {
+        # "10-disable-camera" = {
+          # "wireplumber.profiles" = {
+            # main."monitor.libcamera" = "disabled";
+          # };
+        # };
+      # };
     };
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
