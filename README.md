@@ -16,3 +16,6 @@ home manager needs to be manually installed
   https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone
 then can be rebuilt with 
   home-manager switch --flake .
+
+and for fignerprint
+  https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/13th-gen-intel
