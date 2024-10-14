@@ -9,18 +9,23 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./stylix-s.nix
+      ./kanata.nix
       # <nixos-hardware/framework/13-inch/13th-gen-intel>
       # "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/framework/13-Inch/13th-gen-intel"
     ];
   
   services.fwupd.enable = true;
+  # we need fwupd 1.9.7 to downgrade the fingerprint sensor firmware
+  services.fwupd.package = (import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/bb2009ca185d97813e75736c2b8d1d8bb81bde05.tar.gz";
+    sha256 = "sha256:003qcrsq5g5lggfrpq31gcvj82lb065xvr7bpfa8ddsw8x4dnysk";
+  }) {
+    inherit (pkgs) system;
+  }).fwupd;
 
   # Bootloader.
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.efiSupport = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -80,7 +85,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -89,6 +93,16 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber = {
+      enable = true;
+      # extraConfig = {
+        # "10-disable-camera" = {
+          # "wireplumber.profiles" = {
+            # main."monitor.libcamera" = "disabled";
+          # };
+        # };
+      # };
+    };
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -98,7 +112,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   environment.sessionVariables = {
@@ -115,23 +129,30 @@
   users.users.jonah = {
     isNormalUser = true;
     description = "Jonah";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
     packages = with pkgs; [
       firefox
       networkmanagerapplet
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.lightly
       libsForQt5.kdegraphics-thumbnailers
+      libsForQt5.kio
+      libsForQt5.kio-extras
+      libsForQt5.ffmpegthumbs
+      libsForQt5.kimageformats
+      libsForQt5.dolphin-plugins
+      libsForQt5.qt5.qtsvg
       qt6Packages.qt6ct
       qt6.qtwayland
       qt5.qtwayland
       kio-admin
+      pulseaudioFull
     ];
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "jonah";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "jonah";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -146,11 +167,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    unar
     wget
     git
     steam
-    steam-tui
-    steamcmd
+    # steam-tui
+    # steamcmd
     steam-run-native
     rofi
     wofi
@@ -160,6 +182,8 @@
     hyprpaper
     actkbd
     ani-cli
+    pulsemixer
+    kanata
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -197,6 +221,9 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
     # package = pkgs.steam.override {
       # withPrimus = true;
       # withJava = true;
@@ -205,11 +232,12 @@
   };
   programs.steam.gamescopeSession.enable = true;
 
+  # sound.enable = true;
 
-  hardware.opengl ={
+  hardware.graphics ={
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    # driSupport = true;
+    enable32Bit = true;
     extraPackages = [ pkgs.amdvlk ];
     extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
@@ -226,16 +254,18 @@
   services.tlp = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        # CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+        # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
         CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MAX_PERF_ON_AC = 75;
         CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
+        CPU_MAX_PERF_ON_BAT = 25;
 
        #Optional helps save long term battery health
        START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
@@ -248,6 +278,7 @@
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    wqy_zenhei
     liberation_ttf
     fira-code
     fira-code-symbols
@@ -260,6 +291,7 @@
     powerline-symbols
   ];
   
+
   qt = {
     enable = true;
     # platformTheme = "qt6ct";
@@ -271,6 +303,7 @@
       { keys = [ 53 97 ]; events = [ "key" ]; command = "key(0xffff),rel(0xffff),noexec"; }
     ];
   };
+
 
   programs.nm-applet.enable = true;
 

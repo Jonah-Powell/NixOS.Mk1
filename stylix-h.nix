@@ -2,11 +2,13 @@
 
 {
     stylix = {
-        image = ./Firefox_wallpaper.jpg;
-        # image = ./Firefox_wallpaper.png;
+        # image = ./current_wallpaper.jpg;
+        enable = true;
+        image = ./current_wallpaper.png;
         targets.hyprland.enable = true;
         targets.waybar.enable = true;
         polarity = "dark";
+
         # override = {
         #     base00 = "203d21";
         #     base01 = "ff0018";
@@ -25,5 +27,30 @@
         #     # base0E = "";
         #     # base0F = "";
         # };
+
+        fonts = {
+            serif = {
+                package = pkgs.nerdfonts;
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Propo";
+            };
+
+            sansSerif = {
+                package = pkgs.nerdfonts;
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Propo";
+            };
+
+            monospace = {
+                package = pkgs.nerdfonts;
+                # name = "DejaVuSansM Nerd Font";
+                name = "BigBlueTermPlus Nerd Font Mono";
+            };
+
+            emoji = {
+                package = pkgs.noto-fonts-monochrome-emoji;
+                name = "Noto Emoji";
+            };
+        };
     };
 }

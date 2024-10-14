@@ -26,6 +26,7 @@
       ./hyprland.nix
       ./waybar.nix
       ./stylix-h.nix
+      ./ranger.nix
     ];
 
   # Minimize/Maximize Windows
@@ -41,9 +42,11 @@
     vscodium-fhs
     vlc
     jdk
-    clamav
+    # clamav
     discord
     betterdiscordctl
+    _4d-minesweeper
+    google-chrome
     gcc_multi
     gimp
     tlp
@@ -52,11 +55,20 @@
     protontricks
     protonup
     kitty
-    nyancat
-    r2modman
+    # nyancat
+    # r2modman
     tor-browser
     gparted
     libreoffice
+    sherlock
+    lutris
+    mangal
+    wayneko
+    gotop
+
+    # konsole
+    # ripdrag
+    highlight
 
     networkmanager
     mpd
@@ -70,6 +82,7 @@
     qt6ct
 
     grimblast 
+    obs-studio
     brightnessctl
     brillo
     cliphist
@@ -77,6 +90,9 @@
     go
     dunst
     libnotify
+    # swayidle
+    # swaylock
+    hypridle
 
     imv
     gwenview
@@ -91,11 +107,11 @@
     gnomeExtensions.appindicator
 
 
-    gnome.gnome-tweaks
-    gnome.gnome-boxes
-    gnome.gnome-software
-    gnome.gnome-shell
-    gnome.gnome-shell-extensions
+    gnome-tweaks
+    gnome-boxes
+    gnome-software
+    gnome-shell
+    gnome-shell-extensions
     gnome-extension-manager
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -144,6 +160,8 @@
   #
   home.sessionVariables = {
     EDITOR = "codium";
+    TERMINAL = "kitty";
+    BROWSER = "firefox";
     NIXPKGS_ALLOW_UNFREE=1;
   };
 
@@ -156,7 +174,10 @@
     enable = true;
     package = pkgs.vscodium.fhs;
     extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
+      # bbenoist.nix
+      dotjoshjohnson.xml
+      jnoortheen.nix-ide
+      # redhat.vscode-xml
     ];
   };
 
@@ -168,13 +189,14 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
-    style.name = "qt6ct";
+    # platformTheme.name = "qtct";
+    # style.name = "qt6ct";
   };
+
+  programs.vim.enable = true;
 
 
   # Fix this all later
-  # home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
 
   # wayland.windowManager.hyprland = {
   #   enable = true;

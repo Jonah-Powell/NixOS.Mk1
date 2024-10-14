@@ -3,8 +3,10 @@
 {
     # services.xserver.enable = true;
     stylix = {
-        image = ./Firefox_wallpaper.jpg;
-        # image = ./Firefox_wallpaper.png;
+        enable = true;
+        autoEnable = true;
+        # image = ./current_wallpaper.jpg;
+        image = ./current_wallpaper.png;
         # targets.hyprland.enable = true;
     };
 }

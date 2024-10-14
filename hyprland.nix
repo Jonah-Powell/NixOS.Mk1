@@ -25,19 +25,20 @@
             # Variables
             "$mainMod" = "SUPER";
             "$terminal" = "kitty";
-            "$fileManager" = "dolphin";
+            "$fileManagerCLI" = "kitty -e ranger";
+            "$fileManagerGUI" = "dolphin";
             "$menu" = "wofi --show drun";
             "monitor" = "eDP-1,2256x1504,auto,1.0";
 
             env = [
                 "XCURSOR_SIZE,24"
-                "QT_QPA_PLATFORMTHEME,qt6ct"
+                "QT_QPA_PLATFORM,wayland"
+                "QT_QPA_PLATFORMTHEME,qt5ct"
             ];
 
             windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.
 
-
-            "exec-once" = "firefox & hyprpaper & dunst & wl-paste --watch cliphist store";
+            "exec-once" = "firefox & hyprpaper & dunst & wl-paste --watch cliphist store & for i in {1..4}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
 
             # Some more settings
             input = {
@@ -114,7 +115,7 @@
 
             master = {
                 # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-                new_is_master = "true";
+                new_status = "master";
             };
 
             gestures = {
@@ -139,18 +140,24 @@
                 "$mainMod, Q, exec, $terminal"
                 "$mainMod, C, killactive, "
                 "$mainMod, M, exit, "
-                "$mainMod, E, exec, $fileManager"
+                "$mainMod, E, exec, $fileManagerCLI"
+                "$mainMod SHIFT, E, exec, $fileManagerGUI"
                 "$mainMod, V, togglefloating, "
                 "$mainMod, R, exec, $menu"
-                "$mainMod, P, pseudo, # dwindle"
+                "$mainMod, K, pseudo, # dwindle"
                 "$mainMod, J, togglesplit, # dwindle"
 
                 # screencap
                 ", Print, exec, grimblast copy area"
 
-
                 #lots more stuff aaarg
                 "$mainMod SHIFT,Q,exec,firefox"
+                "ALT SHIFT, Q, exec, firefox --private-window"
+                "$mainMod, G, exec, google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito"
+
+                
+
+
                 "$mainMod SHIFT,C,exec,codium"
                 "ALT SHIFT,S,exec,steam"
                 "ALT SHIFT,D,exec,discord"
@@ -197,16 +204,19 @@
                 "$mainMod, D, togglespecialworkspace, specce3"
                 "ALT SHIFT, 3, movetoworkspace, special:specce3"
 
+                
                 "$mainMod, mouse_down, workspace, e+1"
                 "$mainMod, mouse_up, workspace, e-1"
 
-                # "$mainMod, B, exec, waybar"
-                "$mainMod SHIFT, B, exec, hyprpaper"
+                # restart hyprpaper & waybar 
+                "$mainMod SHIFT, B, exec, killall hyprpaper && hyprpaper"
                 "$mainMod, B, exec, killall .waybar-wrapped && waybar"
+                "$mainMod SHIFT, N, exec, wayneko --layer overlay --follow-pointer true"
 
-
+                # bluetooth
                 "$ALT SHIFT, Z, exec, bluetoothctl power on"
                 "$ALT SHIFT, X, exec, bluetoothctl power off"
+                "$mainMod SHIFT, Z, exec, bluetoothctl connect 74:5C:4B:B4:F2:07"
 
                 # cliphist
                 "$mainMod SHIFT, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
@@ -214,8 +224,8 @@
             # Repeat Keybinds
             binde = [
                 # volume
-                ", 123, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%+"
-                ", 122, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%-"
+                ", 123, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 6%+"
+                ", 122, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 6%-"
                 # brightness
                 ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
                 ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
@@ -232,8 +242,6 @@
   };
 }
 
-
-# Simple binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
 
 
