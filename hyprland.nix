@@ -28,7 +28,10 @@
             "$fileManagerCLI" = "kitty -e ranger";
             "$fileManagerGUI" = "dolphin";
             "$menu" = "wofi --show drun";
-            "monitor" = "eDP-1,2256x1504,auto,1.0";
+            "monitor" = [ 
+                "eDP-1, 2256x1504, auto, 1"
+                ", preferred, auto, 1, mirror, eDP-1"
+            ];
 
             env = [
                 "XCURSOR_SIZE,24"
@@ -36,7 +39,11 @@
                 "QT_QPA_PLATFORMTHEME,qt5ct"
             ];
 
-            windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.
+            windowrulev2 = [
+                "float, title: ^Picture-in-Picture$"
+                "pin, title: ^Picture-in-Picture$"
+                "suppressevent maximize, class:.*" # You'll probably like this.
+            ];
 
             "exec-once" = "firefox & hyprpaper & dunst & wl-paste --watch cliphist store & for i in {1..4}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
 
@@ -115,12 +122,12 @@
 
             master = {
                 # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-                new_status = "master";
+                new_status = "slave";
             };
 
             gestures = {
                 # See https://wiki.hyprland.org/Configuring/Variables/ for more
-                workspace_swipe = "off";
+                workspace_swipe = "on";
             };
 
             misc = {
@@ -150,13 +157,11 @@
                 # screencap
                 ", Print, exec, grimblast copy area"
 
+                # Sleep
+                "$mainMod, escape, exec, systemctl suspend"
+
                 #lots more stuff aaarg
                 "$mainMod SHIFT,Q,exec,firefox"
-                "ALT SHIFT, Q, exec, firefox --private-window"
-                "$mainMod, G, exec, google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito"
-
-                
-
 
                 "$mainMod SHIFT,C,exec,codium"
                 "ALT SHIFT,S,exec,steam"

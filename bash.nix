@@ -4,10 +4,10 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      ll = "ls -l";
+     lt = "ls -h -s -1 -S --classify";
+     ll = "ls -l";
       ".." = "cd ..";
       c = "clear";
-      lt = "ls -h -s -1 -S --classify";
       fetchneo = "nix-shell -p neofetch";
       gpart = "sudo -E gparted";
 
@@ -24,8 +24,8 @@
       flakeconfig = "codium ~/.dotfiles/flake.nix";
       
       #Python Coding aliases
-      phyfiles = "cd ~/Documents/phy115L";
-      phydev = ''cd ~/Documents/phy115L
+      phyfiles = "cd ~/Documents/Physics";
+      phydev = ''cd ~/Documents/Physics
       nix-shell'';
     };
   };

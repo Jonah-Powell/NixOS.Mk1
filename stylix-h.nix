@@ -2,9 +2,9 @@
 
 {
     stylix = {
-        # image = ./current_wallpaper.jpg;
+        image = ./current_wallpaper.jpg;
         enable = true;
-        image = ./current_wallpaper.png;
+        # image = ./current_wallpaper.png;
         targets.hyprland.enable = true;
         targets.waybar.enable = true;
         polarity = "dark";

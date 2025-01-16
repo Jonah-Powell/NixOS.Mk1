@@ -11,7 +11,7 @@
       config = ''
       (defsrc
         lctl i      9 = voldwn
-        rctl [      o 2 w rght
+        rctl /      o 2 w      rght
       )
 
       (deflayer default
@@ -21,18 +21,18 @@
 
       (deflayer press
         _     8     0 - volu
-        _     prtsc p 3 e lft
+        _     prtsc p 3 e      lft
       )
 
-      (deflayer tdance
+      (deflayer double
         @ctl2 8     0 - volu
-        _     prtsc p 3 e lft
+        _     prtsc p 3 e      lft
       )
 
       (defalias
-        ctl1 (tap-dance 500 (lctl (layer-switch tdance)))
+        ctl1 (tap-dance 500 (lctl (layer-switch double)))
         ctl2 (tap-dance 500 (lctl (layer-switch default)))
-        rctl (tap-hold 2 200 rctl (layer-toggle press))
+        rctl (tap-hold 0 10 rctl (layer-toggle press))
       )
       '';
       extraDefCfg = "process-unmapped-keys yes";

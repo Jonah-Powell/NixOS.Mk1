@@ -132,6 +132,7 @@
     extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
     packages = with pkgs; [
       firefox
+      tor-browser-bundle-bin
       networkmanagerapplet
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.lightly
@@ -174,6 +175,7 @@
     # steam-tui
     # steamcmd
     steam-run-native
+    steam-run
     rofi
     wofi
     audacity
@@ -213,8 +215,14 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  nix.settings = {
+    experimental-features = [ 
+      "nix-command" 
+      "flakes" 
+    ];
+    download-buffer-size = "2G";
+  };
+  
   programs.java.enable = true; 
 
   programs.steam = {
@@ -252,31 +260,53 @@
   services.power-profiles-daemon.enable = false;
   
   services.tlp = {
-      enable = true;
-      settings = {
-        # CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      # CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
+      # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-        # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
+      # CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 75;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 25;
+      CPU_MIN_PERF_ON_AC = 0;
+      # CPU_MAX_PERF_ON_AC = 75;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      # CPU_MAX_PERF_ON_BAT = 50;
+      CPU_MAX_PERF_ON_BAT = 100;
 
-       #Optional helps save long term battery health
-       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      #Optional helps save long term battery health
+      START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+      STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
 
-      };
+    };
   };
+
+  # services.tor = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   relay = {
+  #     enable = true;
+  #     role = "relay";
+  #   };
+  #   settings = {
+  #     # ContactInfo = "toradmin@example.org";
+  #     # Nickname = "filker";
+  #     ORPort = 9001;
+  #     ControlPort = 9051;
+  #     # BandWidthRate = "1 MBytes";
+  #     ExcludeNodes = "{us}";
+  #     StrictNodes = "1";
+  #   };
+  # };
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     wqy_zenhei
     liberation_ttf

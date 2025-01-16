@@ -46,7 +46,6 @@
     discord
     betterdiscordctl
     _4d-minesweeper
-    google-chrome
     gcc_multi
     gimp
     tlp
@@ -57,7 +56,6 @@
     kitty
     # nyancat
     # r2modman
-    tor-browser
     gparted
     libreoffice
     sherlock
@@ -67,7 +65,7 @@
     gotop
 
     # konsole
-    # ripdrag
+    ripdrag
     highlight
 
     networkmanager
@@ -78,7 +76,7 @@
     hyprland
     xorg.xhost
     font-awesome_5
-    qt5ct
+    libsForQt5.qt5ct
     qt6ct
 
     grimblast 
@@ -102,7 +100,7 @@
     gnomeExtensions.arcmenu
     gnomeExtensions.blur-my-shell
     gnomeExtensions.just-perfection
-    gnomeExtensions.rounded-window-corners
+    # gnomeExtensions.rounded-window-corners
     gnomeExtensions.vitals
     gnomeExtensions.appindicator
 
