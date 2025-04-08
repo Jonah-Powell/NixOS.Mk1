@@ -2,9 +2,9 @@
 
 {
     stylix = {
-        image = ./current_wallpaper.jpg;
+        # image = ./current_wallpaper.jpg;
         enable = true;
-        # image = ./current_wallpaper.png;
+        image = ./current_wallpaper.png;
         targets.hyprland.enable = true;
         targets.waybar.enable = true;
         polarity = "dark";
@@ -30,6 +30,7 @@
 
         fonts = {
             serif = {
+                # package = pkgs.nerd-fonts.bigblue-terminal;
                 package = pkgs.nerdfonts;
                 # name = "DejaVuSansM Nerd Font";
                 name = "BigBlueTermPlus Nerd Font Propo";

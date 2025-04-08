@@ -5,8 +5,8 @@
     stylix = {
         enable = true;
         autoEnable = true;
-        image = ./current_wallpaper.jpg;
-        # image = ./current_wallpaper.png;
+        # image = ./current_wallpaper.jpg;
+        image = ./current_wallpaper.png;
         # targets.hyprland.enable = true;
     };
 }

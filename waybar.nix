@@ -1,5 +1,5 @@
 {config, pkgs, ...}:
-
+# This is just the default and definitely should get rewritten when I have time
 {
     programs.waybar = {
         enable = true;

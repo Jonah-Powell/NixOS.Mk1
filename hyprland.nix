@@ -74,10 +74,16 @@
                 #"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
                 #"col.inactive_border" = "rgba(595959aa)";
 
-                layout = "dwindle";
+                layout = "master";
 
                 # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
                 allow_tearing = "false";
+            };
+
+            # Please destroy this, huh?
+
+            debug = {
+                suppress_errors = "true";
             };
 
             decoration = {
@@ -91,10 +97,15 @@
                     passes = "1";
                 };
 
-                drop_shadow = "yes";
+                # shadow = {
+                #     enabled = "false";
+                #     # color = "1a1a1aee";
+                # };
+
+                drop_shadow = "no";
                 shadow_range = "4";
                 shadow_render_power = "3";
-                # "col.shadow" = "rgba(1a1a1aee)";
+                "col.shadow" = "rgba(1a1a1aee)";
             };
 
             animations = {
@@ -146,7 +157,7 @@
                 # base default stuff
                 "$mainMod, Q, exec, $terminal"
                 "$mainMod, C, killactive, "
-                "$mainMod, M, exit, "
+                "$mainMod SHIFT, M, exit, "
                 "$mainMod, E, exec, $fileManagerCLI"
                 "$mainMod SHIFT, E, exec, $fileManagerGUI"
                 "$mainMod, V, togglefloating, "
@@ -160,18 +171,38 @@
                 # Sleep
                 "$mainMod, escape, exec, systemctl suspend"
 
-                #lots more stuff aaarg
-                "$mainMod SHIFT,Q,exec,firefox"
+                # Fullscreen 
+                "$mainMod, F, fullscreen, 1"
+                "$mainMod SHIFTH, F, fullscreen, 0"
 
+                # Browser stuff 
+                "$mainMod SHIFT,Q,exec,firefox"
+                "ALT SHIFT, Q, exec, firefox --private-window"
+
+                # Layout Change
+                "$mainMod, L, exec, hyprctl keyword general:layout \"dwindle\""
+                "$mainMod SHIFT, L, exec, hyprctl keyword general:layout \"master\""
+
+                # Mastery
+                "ALT,N,layoutmsg,cyclenext"
+                "ALT,M,layoutmsg,swapwithmaster"
+                "$mainMod,N,layoutmsg,removemaster"
+                "$mainMod,M,layoutmsg,addmaster"
+                
+
+                # A few common apps
                 "$mainMod SHIFT,C,exec,codium"
+                # "$mainMod SHIFT,D,exec,emacsclient -c -a \'emacs\'"
                 "ALT SHIFT,S,exec,steam"
-                "ALT SHIFT,D,exec,discord"
-                "$mainMod,N,exec,nautilus"
-                "$mainMod SHIFT,M,layoutmsg,cyclenext"
+                "ALT SHIFT,D,exec,vesktop"
+                # "$mainMod SHIFT,N,exec,nautilus"
+
+                # Moving around
                 "$mainMod, left, movefocus, l"
                 "$mainMod, right, movefocus, r"
                 "$mainMod, up, movefocus, u"
                 "$mainMod, down, movefocus, d"
+                # Go to
                 "$mainMod, 1, workspace, 1"
                 "$mainMod, 2, workspace, 2"
                 "$mainMod, 3, workspace, 3"
@@ -182,6 +213,7 @@
                 "$mainMod, 8, workspace, 8"
                 "$mainMod, 9, workspace, 9"
                 "$mainMod, 0, workspace, 10"
+                # Shove and follow
                 "$mainMod CTRL SHIFT, 1, movetoworkspace, 1"
                 "$mainMod CTRL SHIFT, 2, movetoworkspace, 2"
                 "$mainMod CTRL SHIFT, 3, movetoworkspace, 3"
@@ -192,6 +224,7 @@
                 "$mainMod CTRL SHIFT, 8, movetoworkspace, 8"
                 "$mainMod CTRL SHIFT, 9, movetoworkspace, 9"
                 "$mainMod CTRL SHIFT, 0, movetoworkspace, 10"
+                # Shove away
                 "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
                 "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
                 "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
@@ -202,6 +235,7 @@
                 "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
                 "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
                 "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
+                # Speccyweccy
                 "$mainMod, A, togglespecialworkspace, specce1"
                 "ALT SHIFT, 1, movetoworkspace, special:specce1"
                 "$mainMod, S, togglespecialworkspace, specce2"
@@ -209,13 +243,15 @@
                 "$mainMod, D, togglespecialworkspace, specce3"
                 "ALT SHIFT, 3, movetoworkspace, special:specce3"
 
-                
                 "$mainMod, mouse_down, workspace, e+1"
                 "$mainMod, mouse_up, workspace, e-1"
 
-                # restart hyprpaper & waybar 
+                # restart hyprpaper & waybar & emacs client
                 "$mainMod SHIFT, B, exec, killall hyprpaper && hyprpaper"
                 "$mainMod, B, exec, killall .waybar-wrapped && waybar"
+                # "$ALT, B, exec, emacsclient -e '(save-buffers-kill-emacs)' && emacs --daemon"
+                
+                # Cat factory
                 "$mainMod SHIFT, N, exec, wayneko --layer overlay --follow-pointer true"
 
                 # bluetooth

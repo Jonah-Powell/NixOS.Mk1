@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./stylix-s.nix
       ./kanata.nix
+      # ./emacs.nix
       # <nixos-hardware/framework/13-inch/13th-gen-intel>
       # "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/framework/13-Inch/13th-gen-intel"
     ];
@@ -148,6 +149,7 @@
       qt5.qtwayland
       kio-admin
       pulseaudioFull
+      texliveFull
     ];
   };
 
@@ -164,6 +166,11 @@
     allowUnfree = true;
     allowUnfreePredicate = (_: true);
   };
+
+  # Patch emacs package
+  # nixpkgs.overlays = [
+  #   inputs.emacs-overlay.overlay
+  # ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -186,6 +193,8 @@
     ani-cli
     pulsemixer
     kanata
+
+    # pkgs.emacsGcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -262,22 +271,22 @@
   services.tlp = {
     enable = true;
     settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      # CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-      # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      # CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      # CPU_SCALING_GOVERNOR_ON_BAT = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-      # CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      # CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+      # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
       CPU_MIN_PERF_ON_AC = 0;
-      # CPU_MAX_PERF_ON_AC = 75;
-      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MAX_PERF_ON_AC = 75;
+      # CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      # CPU_MAX_PERF_ON_BAT = 50;
-      CPU_MAX_PERF_ON_BAT = 100;
+      CPU_MAX_PERF_ON_BAT = 50;
+      # CPU_MAX_PERF_ON_BAT = 100;
 
       #Optional helps save long term battery health
       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
@@ -286,47 +295,39 @@
     };
   };
 
-  # services.tor = {
-  #   enable = true;
-  #   openFirewall = true;
-  #   relay = {
-  #     enable = true;
-  #     role = "relay";
-  #   };
-  #   settings = {
-  #     # ContactInfo = "toradmin@example.org";
-  #     # Nickname = "filker";
-  #     ORPort = 9001;
-  #     ControlPort = 9051;
-  #     # BandWidthRate = "1 MBytes";
-  #     ExcludeNodes = "{us}";
-  #     StrictNodes = "1";
-  #   };
-  # };
+  # For now
+  fonts.packages = with pkgs; [ nerdfonts ];
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    wqy_zenhei
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts
-    nerdfonts
-    font-awesome
-    powerline-fonts
-    powerline-symbols
-  ];
+  # Once unstable is more stable use these
+  # fonts.packages = with pkgs.nerd-fonts; [
+  #   noto
+  #   # wqy_zenhei
+  #   liberation
+  #   fira-code
+  #   # fira-code-symbols
+  #   # mplus-outline-fonts.githubRelease
+  #   # dina-font
+  #   proggy-clean-tt
+  #   # nerdfonts
+  #   # font-awesome
+  #   # powerline-fonts
+  #   # powerline-symbols
+  #   bigblue-terminal
+  #   dejavu-sans-mono
+  #   hack 
+  #   hasklug
+  #   # 0xproto
+  #   tinos
+  #   cousine
+  #   code-new-roman
+  # ];
   
-
   qt = {
     enable = true;
     # platformTheme = "qt6ct";
   };
 
+  # Can probably remove, superseded by Kanata
   services.actkbd = {
     enable = true;
     bindings = [

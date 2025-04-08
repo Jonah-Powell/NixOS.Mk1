@@ -30,7 +30,7 @@
     ];
 
   # Minimize/Maximize Windows
-  dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "minimize,maximize,close";
+  # dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "minimize,maximize,close";
 
 
   # The home.packages option allows you to install Nix packages into your
@@ -43,7 +43,9 @@
     vlc
     jdk
     # clamav
-    discord
+    # discord
+    vesktop
+    zoom-us
     betterdiscordctl
     _4d-minesweeper
     gcc_multi
@@ -54,6 +56,7 @@
     protontricks
     protonup
     kitty
+    lolcat
     # nyancat
     # r2modman
     gparted
@@ -63,13 +66,12 @@
     mangal
     wayneko
     gotop
+    ripgrep
 
-    # konsole
-    ripdrag
-    highlight
+    nixd
 
     networkmanager
-    mpd
+    # mpd
     killall
     # lm_sensors
 
@@ -78,6 +80,8 @@
     font-awesome_5
     libsForQt5.qt5ct
     qt6ct
+    leaf
+    python313Packages.pip
 
     grimblast 
     obs-studio
@@ -90,27 +94,27 @@
     libnotify
     # swayidle
     # swaylock
-    hypridle
+    # hypridle
 
     imv
     gwenview
     # gnome extensions
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.system-monitor-2
-    gnomeExtensions.arcmenu
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.just-perfection
+    # gnomeExtensions.dash-to-dock
+    # gnomeExtensions.system-monitor-2
+    # gnomeExtensions.arcmenu
+    # gnomeExtensions.blur-my-shell
+    # gnomeExtensions.just-perfection
     # gnomeExtensions.rounded-window-corners
-    gnomeExtensions.vitals
-    gnomeExtensions.appindicator
+    # gnomeExtensions.vitals
+    # gnomeExtensions.appindicator
 
 
-    gnome-tweaks
-    gnome-boxes
-    gnome-software
-    gnome-shell
-    gnome-shell-extensions
-    gnome-extension-manager
+    # gnome-tweaks
+    # gnome-boxes
+    # gnome-software
+    # gnome-shell
+    # gnome-shell-extensions
+    # gnome-extension-manager
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -175,6 +179,7 @@
       # bbenoist.nix
       dotjoshjohnson.xml
       jnoortheen.nix-ide
+      mshr-h.veriloghdl
       # redhat.vscode-xml
     ];
   };
@@ -192,7 +197,6 @@
   };
 
   programs.vim.enable = true;
-
 
   # Fix this all later
 

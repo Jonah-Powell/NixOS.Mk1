@@ -10,21 +10,28 @@
       ];
       config = ''
       (defsrc
-        i    9     = voldwn
-        rctl /     o 2      w rght
+        lctl i      9 = voldwn
+        rctl /      o 2 w      rght
       )
 
       (deflayer default
-        _     _     _ _
-        @rctl _     _ _     _ _
+        @ctl1 _     _ _ _
+        @rctl _     _ _ _ _
       )
 
       (deflayer press
-        8    0     - volu
-        _    prtsc p 3      e lft
+        _     8     0 - volu
+        _     prtsc p 3 e      lft
+      )
+
+      (deflayer double
+        @ctl2 8     0 - volu
+        _     prtsc p 3 e      lft
       )
 
       (defalias
+        ctl1 (tap-dance 500 (lctl (layer-switch double)))
+        ctl2 (tap-dance 500 (lctl (layer-switch default)))
         rctl (tap-hold 0 10 rctl (layer-toggle press))
       )
       '';
