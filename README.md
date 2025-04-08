@@ -6,7 +6,7 @@ Either don't grab the hardware config, or get the proper disk uuid from the /etc
 
 put 
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+```nix.settings.experimental-features = [ "nix-command" "flakes" ];```
   
 in etc nix conf
 
@@ -14,11 +14,11 @@ in etc nix conf
 
 command to rebuild is 
 
-  sudo nixos-rebuild switch 
+```sudo nixos-rebuild switch```
   
 append
 
-  --flake .
+```--flake .```
   
 when flakes are wanted
 
@@ -26,14 +26,14 @@ when flakes are wanted
 
 home manager needs to be manually installed
 
-  https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone
+```https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone```
   
 then can be rebuilt with 
 
-  home-manager switch --flake .
+```home-manager switch --flake .```
 
   
 
 and for fingerprint
 
-  https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/13th-gen-intel
+```https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/13th-gen-intel```
