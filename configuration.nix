@@ -9,8 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./stylix-s.nix
-      ./kanata.nix
-      # ./emacs.nix
+      # ./kanata.nix
+      ./emacs.nix
       # <nixos-hardware/framework/13-inch/13th-gen-intel>
       # "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/framework/13-Inch/13th-gen-intel"
     ];
@@ -87,6 +87,7 @@
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
+  # services.pulseaudio.enable = false;
   security.polkit.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -122,7 +123,7 @@
     XDG_SESSION_TYPE = "wayland";
     GDK_BACKEND = "wayland";
     GTK_USE_PORTAL = "1";
-    QT_QPA_PLATFORMTHEME = "qt6ct";
+    # QT_QPA_PLATFORMTHEME = "qt6ct";
     QT_QPA_PLATFORM = "wayland";
     # WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
@@ -133,7 +134,6 @@
     extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
     packages = with pkgs; [
       firefox
-      tor-browser-bundle-bin
       networkmanagerapplet
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.lightly
@@ -147,7 +147,7 @@
       qt6Packages.qt6ct
       qt6.qtwayland
       qt5.qtwayland
-      kio-admin
+      # kio-admin
       pulseaudioFull
       texliveFull
     ];
@@ -168,9 +168,9 @@
   };
 
   # Patch emacs package
-  # nixpkgs.overlays = [
-  #   inputs.emacs-overlay.overlay
-  # ];
+  nixpkgs.overlays = [
+    inputs.emacs-overlay.overlay
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -186,7 +186,7 @@
     rofi
     wofi
     audacity
-    dolphin
+    kdePackages.dolphin
     waybar
     hyprpaper
     actkbd
@@ -222,7 +222,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
   nix.settings = {
     experimental-features = [ 
@@ -263,6 +263,11 @@
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.kdePackages.xdg-desktop-portal-kde
     ];
   };
 
@@ -296,7 +301,10 @@
   };
 
   # For now
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts = {
+    fontconfig.enable = true;
+    packages = with pkgs; [ nerdfonts ];
+  };
 
   # Once unstable is more stable use these
   # fonts.packages = with pkgs.nerd-fonts; [
@@ -314,14 +322,14 @@
   #   # powerline-symbols
   #   bigblue-terminal
   #   dejavu-sans-mono
-  #   hack 
+  #   hack
   #   hasklug
   #   # 0xproto
   #   tinos
   #   cousine
   #   code-new-roman
   # ];
-  
+
   qt = {
     enable = true;
     # platformTheme = "qt6ct";
@@ -337,5 +345,7 @@
 
 
   programs.nm-applet.enable = true;
+
+  services.logmein-hamachi.enable = true;
 
 }

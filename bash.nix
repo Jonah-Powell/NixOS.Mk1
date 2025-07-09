@@ -19,7 +19,7 @@
       srebuild = "sudo nixos-rebuild switch --flake .";
       sqebuild = "sudo nixos-rebuild switch --flake . --impure";
       flakeup = "sudo nix flake update";
-      cleanup = "sudo nix-collect-garbage";
+      cleanup = "sudo nix-collect-garbage --delete-older-than 14d";
       sysconfig = "codium ~/.dotfiles/configuration.nix";
       homeconfig = "codium ~/.dotfiles/home.nix";
       flakeconfig = "codium ~/.dotfiles/flake.nix";
@@ -31,10 +31,8 @@
 
       haskdev = "";
     };
-    # For emacs need to add
-    # export PATH="$HOME/.config/emacs/bin:$PATH"
-    # to bashrcExtra
     bashrcExtra = ''
+      export PATH="$HOME/.config/emacs/bin:$PATH"
       cat ~/.dotfiles/nixowows-banner.txt | lolcat
     '';
   };

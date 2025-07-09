@@ -45,7 +45,7 @@
                 "suppressevent maximize, class:.*" # You'll probably like this.
             ];
 
-            "exec-once" = "firefox & hyprpaper & dunst & wl-paste --watch cliphist store & for i in {1..4}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
+            "exec-once" = "emacs --daemon & firefox & hyprpaper & dunst & wl-paste --watch cliphist store & for i in {1..4}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
 
             # Some more settings
             input = {
@@ -74,7 +74,7 @@
                 #"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
                 #"col.inactive_border" = "rgba(595959aa)";
 
-                layout = "master";
+                layout = "dwindle";
 
                 # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
                 allow_tearing = "false";
@@ -177,6 +177,8 @@
 
                 # Browser stuff 
                 "$mainMod SHIFT,Q,exec,firefox"
+                "$mainMod SHIFT,A,exec,firefox -new-tab https://twitter.com/garflasange"
+
                 "ALT SHIFT, Q, exec, firefox --private-window"
 
                 # Layout Change
@@ -192,7 +194,7 @@
 
                 # A few common apps
                 "$mainMod SHIFT,C,exec,codium"
-                # "$mainMod SHIFT,D,exec,emacsclient -c -a \'emacs\'"
+                "$mainMod SHIFT,D,exec,emacsclient -c -a \'emacs\'"                
                 "ALT SHIFT,S,exec,steam"
                 "ALT SHIFT,D,exec,vesktop"
                 # "$mainMod SHIFT,N,exec,nautilus"
@@ -249,7 +251,7 @@
                 # restart hyprpaper & waybar & emacs client
                 "$mainMod SHIFT, B, exec, killall hyprpaper && hyprpaper"
                 "$mainMod, B, exec, killall .waybar-wrapped && waybar"
-                # "$ALT, B, exec, emacsclient -e '(save-buffers-kill-emacs)' && emacs --daemon"
+                "$ALT, B, exec, emacsclient -e '(save-buffers-kill-emacs)' && emacs --daemon"
                 
                 # Cat factory
                 "$mainMod SHIFT, N, exec, wayneko --layer overlay --follow-pointer true"
@@ -267,6 +269,7 @@
                 # volume
                 ", 123, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 6%+"
                 ", 122, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 6%-"
+                ", 121, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 0"
                 # brightness
                 ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
                 ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"

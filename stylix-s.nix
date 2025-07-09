@@ -6,7 +6,8 @@
         enable = true;
         autoEnable = true;
         # image = ./current_wallpaper.jpg;
-        image = ./current_wallpaper.png;
+        # image = ./current_wallpaper.png;
+        image = ./a.jpg;
         # targets.hyprland.enable = true;
     };
 }

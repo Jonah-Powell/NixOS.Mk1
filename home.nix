@@ -45,6 +45,8 @@
     # clamav
     # discord
     vesktop
+    qgis
+    prismlauncher
     zoom-us
     betterdiscordctl
     _4d-minesweeper
@@ -68,6 +70,7 @@
     gotop
     ripgrep
 
+    # copilot-language-server
     nixd
 
     networkmanager
@@ -97,7 +100,7 @@
     # hypridle
 
     imv
-    gwenview
+    kdePackages.gwenview
     # gnome extensions
     # gnomeExtensions.dash-to-dock
     # gnomeExtensions.system-monitor-2
@@ -175,6 +178,7 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium.fhs;
+    # profiles.default.extensions = with pkgs.vscode-extensions; [
     extensions = with pkgs.vscode-extensions; [
       # bbenoist.nix
       dotjoshjohnson.xml

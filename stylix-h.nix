@@ -2,11 +2,14 @@
 
 {
     stylix = {
+        # homeManagerIntegration.followSystem = true;
         # image = ./current_wallpaper.jpg;
         enable = true;
         image = ./current_wallpaper.png;
+        # image = ./a.jpg;
         targets.hyprland.enable = true;
         targets.waybar.enable = true;
+        # targets.qt.enable = true;
         polarity = "dark";
 
         # override = {
@@ -29,6 +32,9 @@
         # };
 
         fonts = {
+            sizes = {
+                terminal = 12;
+            };
             serif = {
                 # package = pkgs.nerd-fonts.bigblue-terminal;
                 package = pkgs.nerdfonts;
@@ -38,12 +44,14 @@
 
             sansSerif = {
                 package = pkgs.nerdfonts;
+                # package = pkgs.nerd-fonts.bigblue-terminal;
                 # name = "DejaVuSansM Nerd Font";
                 name = "BigBlueTermPlus Nerd Font Propo";
             };
 
             monospace = {
                 package = pkgs.nerdfonts;
+                # package = pkgs.nerd-fonts.bigblue-terminal;
                 # name = "DejaVuSansM Nerd Font";
                 name = "BigBlueTermPlus Nerd Font Mono";
             };

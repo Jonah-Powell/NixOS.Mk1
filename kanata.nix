@@ -10,18 +10,18 @@
       ];
       config = ''
       (defsrc
-        i    9     = voldwn
-        rctl /     o 2      w rght
+        i    9     = voldwn 4  down . `
+        rctl ,     o 2      w  rght ' \
       )
 
       (deflayer default
-        _     _     _ _
-        @rctl _     _ _     _ _
+        _     _     _ _     _  _    _ _
+        @rctl _     _ _     _  _    _ _
       )
 
       (deflayer press
-        8    0     - volu
-        _    prtsc p 3      e lft
+        8    0     - volu   f3 up   / esc
+        _    prtsc p 3      e  lft  ; [
       )
 
       (defalias

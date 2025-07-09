@@ -8,6 +8,7 @@
     # Uncomment unstable to break everything probably
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # home-manager.url = "github:nix-community/home-manager/";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -20,10 +21,10 @@
 
     # Extras
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # emacs-overlay = {
-      # url = "github:nix-community/emacs-overlay";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
       # inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    };
 
     # Swap which stylix url is commented if stable -> unstable
     stylix.url = "github:danth/stylix/release-24.11";
