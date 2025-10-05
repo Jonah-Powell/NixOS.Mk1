@@ -6,10 +6,10 @@
   inputs = {
     # Core dependencies
     # Uncomment unstable to break everything probably
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # home-manager.url = "github:nix-community/home-manager/";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    home-manager.url = "github:nix-community/home-manager/";
+    # home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland+plugins (which I don't really use, maybe axe them)
@@ -27,9 +27,14 @@
     };
 
     # Swap which stylix url is commented if stable -> unstable
-    stylix.url = "github:danth/stylix/release-24.11";
-    # stylix.url = "github:danth/stylix";
+    # stylix.url = "github:danth/stylix/release-24.11";
+    stylix.url = "github:danth/stylix";
 
+    # rose-pine-hyprcursor = {
+    #   url = "github:ndom91/rose-pine-hyprcursor";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.hyprlang.follows = "hyprland/hyprlang";
+    # };
   };
   
 
@@ -80,7 +85,7 @@
           }; 
           modules = [
             ./home.nix 
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
           ];
         };
       };

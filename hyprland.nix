@@ -42,10 +42,20 @@
             windowrulev2 = [
                 "float, title: ^Picture-in-Picture$"
                 "pin, title: ^Picture-in-Picture$"
+                "opacity 0.85, class:.*"
+                "opacity 1.0, title:(.*)(- YouTube — Mozilla Firefox)"
+                "opacity 1.0, title:(.*)(- HuraWatch — Mozilla Firefox)"
+                "opacity 0.8, class:kitty"
+                "opacity 1.0, class:vlc"
+                "opacity 1.0, fullscreen:1"
+                "opacity 1.0, title: ^Picture-in-Picture$"
+                "opacity 0.6, tag:alpha_6"
+                "opacity 0.0, tag:alpha_0"
+                "opacity 1.0, tag:alpha_1"
                 "suppressevent maximize, class:.*" # You'll probably like this.
             ];
 
-            "exec-once" = "emacs --daemon & firefox & hyprpaper & dunst & wl-paste --watch cliphist store & for i in {1..4}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
+            "exec-once" = "emacs --daemon & firefox & hyprpaper & hyprctl setcursor theme_MarsCursor 64 & dunst & wl-paste --watch cliphist store & for i in {1..5}; do wayneko --layer overlay --follow-pointer true & sleep 1; done";
 
             # Some more settings
             input = {
@@ -152,6 +162,10 @@
                 # sensitivity = -0.5
             # }
 
+            #
+            gesture =[
+                "3, horizontal, workspace"
+            ];
             # Keybinds
             bind = [
                 # base default stuff
@@ -167,6 +181,7 @@
 
                 # screencap
                 ", Print, exec, grimblast copy area"
+                "ALT, Print, exec, grimblast --freeze copy area"
 
                 # Sleep
                 "$mainMod, escape, exec, systemctl suspend"
@@ -180,6 +195,7 @@
                 "$mainMod SHIFT,A,exec,firefox -new-tab https://twitter.com/garflasange"
 
                 "ALT SHIFT, Q, exec, firefox --private-window"
+                "$mainMod, G, exec, google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland --incognito"
 
                 # Layout Change
                 "$mainMod, L, exec, hyprctl keyword general:layout \"dwindle\""
@@ -248,6 +264,11 @@
                 "$mainMod, mouse_down, workspace, e+1"
                 "$mainMod, mouse_up, workspace, e-1"
 
+                # tagging
+                "$mainMod Ctrl, 1, tagwindow, alpha_1"
+                "$mainMod Ctrl, 6, tagwindow, alpha_6"
+                "$mainMod Ctrl, 0, tagwindow, alpha_0"
+
                 # restart hyprpaper & waybar & emacs client
                 "$mainMod SHIFT, B, exec, killall hyprpaper && hyprpaper"
                 "$mainMod, B, exec, killall .waybar-wrapped && waybar"
@@ -273,6 +294,10 @@
                 # brightness
                 ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
                 ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+                # media
+                ", XF86AudioPrev, exec, playerctl previous"
+                ", XF86AudioPlay, exec, playerctl play-pause"
+                ", XF86AudioNext, exec, playerctl next"
             ];
             # mouse keybinds
             bindm = [

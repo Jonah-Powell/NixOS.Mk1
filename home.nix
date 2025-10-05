@@ -42,16 +42,26 @@
     vscodium-fhs
     vlc
     jdk
+    cmake
+    pkg-config
     # clamav
     # discord
-    vesktop
+    # vesktop
+    spotify
     qgis
-    prismlauncher
+    librewolf-wayland
+    wttrbar
+    libvterm
+    epy
+    astroterm
+    playerctl
+    # prismlauncher
     zoom-us
     betterdiscordctl
     _4d-minesweeper
+    google-chrome
     gcc_multi
-    gimp
+    gimp3
     tlp
     wineWowPackages.waylandFull
     winetricks
@@ -68,15 +78,17 @@
     mangal
     wayneko
     gotop
+    btop
     ripgrep
 
     # copilot-language-server
     nixd
+    lua-language-server
 
     networkmanager
     # mpd
     killall
-    # lm_sensors
+    lm_sensors
 
     hyprland
     xorg.xhost
@@ -179,7 +191,7 @@
     enable = true;
     package = pkgs.vscodium.fhs;
     # profiles.default.extensions = with pkgs.vscode-extensions; [
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       # bbenoist.nix
       dotjoshjohnson.xml
       jnoortheen.nix-ide
@@ -188,11 +200,28 @@
     ];
   };
 
-  programs.thefuck = {
-    enable = true;
-    # alias = "fuck";
-  };
+  # programs.thefuck = {
+  #   enable = true;
+  #   # alias = "fuck";
+  # };
 
+
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal =  true;
+    config.common.default = [
+      "gtk"
+      "hyprland"
+    ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+  };
 
   qt = {
     enable = true;
@@ -201,6 +230,53 @@
   };
 
   programs.vim.enable = true;
+
+  programs.vesktop = {
+    enable = true;
+    vencord = {
+      settings = {
+        plugins = {
+          AlwaysTrust.enabled = true;
+          BetterGifAltText.enabled = true;
+          BetterGifPicker.enabled = true;
+          BetterRoleContext.enabled = true;
+          CallTimer.enabled = true;
+          ClearURLs.enabled = true;
+          Decor.enabled = true;
+          ExpressionCloner.enabled = true;
+          FakeNitro = {
+            enabled = true;
+            transformCompoundSentence = true;
+          };
+          FavoriteGifSearch.enabled = true;
+          FixYoutubeEmbeds.enabled = true;
+          FriendsSince.enabled = true;
+          FullSearchContext.enabled = true;
+          GameActivityToggle.enabled = true;
+          ImageLink.enabled = true;
+          ImplicitRelationships.enabled = true;
+          InvisbleChat.enabled = true;
+          MentionAvatars.enabled = true;
+          NoReplyMention.enabled = true;
+          PermissionsViewer.enabled = true;
+          petpet.enabled = true;
+          PinDMs.enabled = true;
+          ReverseImageSearch.enabled = true;
+          SendTimestamps.enabled = true;
+          ServerInfo.enabled = true;
+          ShowHiddenChannels.enabled = true;
+          ShowHiddenThings.enabled = true;
+          SilentTyping.enabled = true;
+          TypingIndicator.enabled = true;
+          TypingTweaks.enabled = true;
+          VencordToolbox.enabled = true;
+          VolumeBooster.enabled = true;
+          WhoReacted.enabled = true;
+          YoutubeAdblock.enabled = true;
+        };
+      };
+    };
+  };
 
   # Fix this all later
 

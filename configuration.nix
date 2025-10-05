@@ -60,12 +60,12 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
 
   # Enable Hyprland <
-  services.xserver.displayManager.gdm.wayland = true;  
+  services.displayManager.gdm.wayland = true;
 
   programs.hyprland = {    
       enable = true;    
@@ -86,7 +86,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   # services.pulseaudio.enable = false;
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -125,31 +125,32 @@
     GTK_USE_PORTAL = "1";
     # QT_QPA_PLATFORMTHEME = "qt6ct";
     QT_QPA_PLATFORM = "wayland";
-    # WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
   users.users.jonah = {
     isNormalUser = true;
     description = "Jonah";
-    extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "uinput" "input" "scanner" "lp" ];
     packages = with pkgs; [
       firefox
+      tor-browser-bundle-bin
       networkmanagerapplet
       libsForQt5.qtstyleplugin-kvantum
-      libsForQt5.lightly
-      libsForQt5.kdegraphics-thumbnailers
+      # libsForQt5.lightly
+      # libsForQt5.kdegraphics-thumbnailers
       libsForQt5.kio
-      libsForQt5.kio-extras
-      libsForQt5.ffmpegthumbs
-      libsForQt5.kimageformats
-      libsForQt5.dolphin-plugins
-      libsForQt5.qt5.qtsvg
+      # libsForQt5.kio-extras
+      # libsForQt5.ffmpegthumbs
+      # libsForQt5.kimageformats
+      # libsForQt5.dolphin-plugins
+      # libsForQt5.qt5.qtsvg
       qt6Packages.qt6ct
       qt6.qtwayland
       qt5.qtwayland
       # kio-admin
       pulseaudioFull
-      texliveFull
+      # texliveFull
     ];
   };
 
@@ -193,7 +194,6 @@
     ani-cli
     pulsemixer
     kanata
-
     # pkgs.emacsGcc
   ];
 
@@ -255,47 +255,42 @@
     enable = true;
     # driSupport = true;
     enable32Bit = true;
-    extraPackages = [ pkgs.amdvlk ];
-    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+    # extraPackages = [ pkgs.amdvlk ];
+    # extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gnome
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.kdePackages.xdg-desktop-portal-kde
-    ];
-  };
 
   services.power-profiles-daemon.enable = false;
-  
+
+  services.thermald.enable = true;
   services.tlp = {
     enable = true;
     settings = {
-      # CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      # CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      # CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
+      # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      # CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-      # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      # CPU_ENERGY_PERF_POLICY_ON_BAT = "low-power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
+      # CPU_ENERGY_PERF_POLICY_ON_AC = "low-power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+      CPU_BOOST_ON_BAT = 0;
+      CPU_HWP_DYN_BOOST_ON_BAT = 0;
 
       CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 75;
-      # CPU_MAX_PERF_ON_AC = 100;
+      # CPU_MAX_PERF_ON_AC = 50;
+      CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 50;
-      # CPU_MAX_PERF_ON_BAT = 100;
+      # CPU_MAX_PERF_ON_BAT = 30;
+      CPU_MAX_PERF_ON_BAT = 100;
 
       #Optional helps save long term battery health
       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      START_CHARGE_THRESH_BAT1 = 40; # 40 and bellow it starts to charge
+      STOP_CHARGE_THRESH_BAT1 = 80; # 80 and above it stops charging
 
     };
   };
@@ -303,32 +298,32 @@
   # For now
   fonts = {
     fontconfig.enable = true;
-    packages = with pkgs; [ nerdfonts ];
+  #   packages = with pkgs; [ nerdfonts ];
   };
 
   # Once unstable is more stable use these
-  # fonts.packages = with pkgs.nerd-fonts; [
-  #   noto
-  #   # wqy_zenhei
-  #   liberation
-  #   fira-code
-  #   # fira-code-symbols
-  #   # mplus-outline-fonts.githubRelease
-  #   # dina-font
-  #   proggy-clean-tt
-  #   # nerdfonts
-  #   # font-awesome
-  #   # powerline-fonts
-  #   # powerline-symbols
-  #   bigblue-terminal
-  #   dejavu-sans-mono
-  #   hack
-  #   hasklug
-  #   # 0xproto
-  #   tinos
-  #   cousine
-  #   code-new-roman
-  # ];
+  fonts.packages = with pkgs.nerd-fonts; [
+    noto
+    # wqy_zenhei
+    liberation
+    fira-code
+    # fira-code-symbols
+    # mplus-outline-fonts.githubRelease
+    # dina-font
+    proggy-clean-tt
+    # nerdfonts
+    # font-awesome
+    # powerline-fonts
+    # powerline-symbols
+    bigblue-terminal
+    dejavu-sans-mono
+    hack
+    hasklug
+    # 0xproto
+    tinos
+    cousine
+    code-new-roman
+  ];
 
   qt = {
     enable = true;
